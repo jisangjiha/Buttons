@@ -10,7 +10,7 @@ const meta = {
   argTypes: {
     children: {
       control: "text",
-      name: "레이블",
+      name: "label",
     },
   },
 } satisfies Meta<typeof Button>;

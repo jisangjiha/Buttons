@@ -1,0 +1,22 @@
+.storybook-button {
+  border: 1px;
+  border-radius: 8px;
+  border-color: 28A5FF;
+  color: white;
+  background-color: #58b5fe;
+  font-family: "pretendard";
+}
+
+.storybook-button--md {
+  width: 68px;
+  height: 38px;
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+.storybook-button--lg {
+  width: 97px;
+  height: 54px;
+  padding: 12px 16px;
+  font-size: 24px;
+}
