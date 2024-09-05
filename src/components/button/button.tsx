@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
+import theme from "../Theme";
 
 interface ButtonProps {
   children: string;
@@ -12,9 +13,9 @@ interface ButtonProps {
 const StyledButton = styled.button`
   border: 1px;
   border-radius: 8px;
-  border-color: #28a5ff;
+  border-color: ${(props) => props.theme.primary400};
   color: white;
-  background-color: #58b5fe;
+  background-color: ${(props) => props.theme.primary300};
   font-family: "Pretendard";
 
   height: 38px;
@@ -23,5 +24,11 @@ const StyledButton = styled.button`
 `;
 
 export default function Button({ children }: ButtonProps) {
-  return <StyledButton>{children}</StyledButton>;
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <StyledButton>{children}</StyledButton>
+      </ThemeProvider>
+    </>
+  );
 }
