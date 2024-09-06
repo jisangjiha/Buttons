@@ -11,14 +11,14 @@ interface ButtonProps {
 }
 
 const StyledButton = styled.button`
-  border: 1px;
+  border: 1px solid ${(props) => props.theme.primary400};
   border-radius: 8px;
-  border-color: ${(props) => props.theme.primary400};
   color: white;
   background-color: ${(props) => props.theme.primary300};
   font-family: "Pretendard";
 
-  height: 38px;
+  line-height: 20px;
+
   padding: 8px 12px;
   font-size: 16px;
 `;
