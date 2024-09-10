@@ -11,7 +11,9 @@ interface ButtonProps {
 }
 
 const StyledButton = styled.button`
-  border: 1px solid ${(props) => props.theme.primary400};
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${(props) => props.theme.primary400};
   border-radius: 8px;
   padding: 8px 12px;
 
@@ -26,26 +28,25 @@ const StyledButton = styled.button`
   font-size: 16px;
 
   &:hover {
-    border: 1px solid ${(props) => props.theme.primary300};
-    background-color: ${(props) => props.theme.primary200};
+    border-color: ${(props) => props.theme.primary600};
+    background-color: ${(props) => props.theme.primary500};
     box-shadow: 0 2px 5px rgba(17, 21, 24, 0.2);
     cursor: pointer;
   }
 
-  &:focus {
-    box-shadow:
-      0 4px 4px rgba(0, 0, 0, 0.25),
-      0 0 0 2px ${(props) => props.theme.primaryFocus};
+  &:focus-visible {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    outline: ${(props) => props.theme.primaryFocus} solid 2px;
   }
 
   &:active {
-    border: 1px solid ${(props) => props.theme.primary500};
-    background-color: ${(props) => props.theme.primary400};
+    border-color: ${(props) => props.theme.primary700};
+    background-color: ${(props) => props.theme.primary600};
     box-shadow: 0 1px 2px rgba(17, 21, 24, 0.2);
   }
 
   &:disabled {
-    border: 1px solid #a9aeb2;
+    border-color: ${(props) => props.theme.gray500};
     background-color: ${(props) => props.theme.gray400};
     cursor: not-allowed;
   }
