@@ -26,6 +26,7 @@ const StyledButton = styled.button<Required<ButtonProps>>`
 
   // 폰트 미적용
   font-family: "Pretendard";
+  font-weight: 600;
   font-size: ${(props) => (props.size === "md" ? "16px" : "24px")};
 
   &:hover {
