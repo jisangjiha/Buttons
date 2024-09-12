@@ -10,12 +10,12 @@ interface ButtonProps {
   danger?: boolean;
 }
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<Required<ButtonProps>>`
   border-width: 1px;
   border-style: solid;
   border-color: ${(props) => props.theme.primary400};
   border-radius: 8px;
-  padding: 8px 12px;
+  padding: ${(props) => (props.size === "md" ? "8px 12px" : "12px 16px")};
 
   color: white;
   background-color: ${(props) => props.theme.primary300};
@@ -24,8 +24,9 @@ const StyledButton = styled.button`
 
   line-height: 20px;
 
+  // 폰트 미적용
   font-family: "Pretendard";
-  font-size: 16px;
+  font-size: ${(props) => (props.size === "md" ? "16px" : "24px")};
 
   &:hover {
     border-color: ${(props) => props.theme.primary600};
@@ -52,12 +53,24 @@ const StyledButton = styled.button`
   }
 `;
 
-export default function Button({ children }: ButtonProps) {
+export default function Button({
+  size = "md",
+  loading = false,
+  disabled = false,
+  icon = false,
+  danger = false,
+  ...props
+}: ButtonProps) {
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <StyledButton>{children}</StyledButton>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      <StyledButton
+        size={size}
+        loading={loading}
+        disabled={disabled}
+        icon={icon}
+        danger={danger}
+        {...props}
+      />
+    </ThemeProvider>
   );
 }
