@@ -52,6 +52,28 @@ const StyledButton = styled.button<Required<ButtonProps>>`
     cursor: not-allowed;
     box-shadow: none;
   }
+
+  &.danger {
+    border-color: ${(props) => props.theme.danger400};
+    background-color: ${(props) => props.theme.danger300};
+    &:hover {
+      border-color: ${(props) => props.theme.danger600};
+      background-color: ${(props) => props.theme.danger500};
+    }
+    &:focus-visible {
+      outline: ${(props) => props.theme.dangerFocus} solid 2px;
+    }
+    &:active {
+      border-color: ${(props) => props.theme.danger700};
+      background-color: ${(props) => props.theme.danger600};
+    }
+    &:disabled {
+      border-color: ${(props) => props.theme.danger300};
+      background-color: ${(props) => props.theme.danger200};
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  }
 `;
 
 export default function Button({
@@ -71,6 +93,7 @@ export default function Button({
         icon={icon}
         danger={danger}
         {...props}
+        className={danger ? "danger" : ""}
       />
     </ThemeProvider>
   );

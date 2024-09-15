@@ -27,6 +27,7 @@ const theme = {
   danger700: "#DB211E",
   danger800: "#CF1616",
   danger900: "#C00004",
+  dangerFocus: "#CA0808",
 };
 
 export default theme;
