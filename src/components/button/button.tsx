@@ -20,6 +20,16 @@ function getColor(
   return props.theme[`primary${number}`];
 }
 
+function getColorStr(
+  props: Required<ButtonProps> & { theme: DefaultTheme },
+  string: string
+) {
+  if (props.danger) {
+    return props.theme[`danger${string}`];
+  }
+  return props.theme[`primary${string}`];
+}
+
 const StyledButton = styled.button<Required<ButtonProps>>`
   border-width: 1px;
   border-style: solid;
@@ -47,7 +57,7 @@ const StyledButton = styled.button<Required<ButtonProps>>`
 
   &:focus-visible {
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    outline: ${(props) => props.theme.primaryFocus} solid 2px;
+    outline: ${(props) => getColorStr(props, "Focus")} solid 2px;
   }
 
   &:active {
@@ -57,20 +67,12 @@ const StyledButton = styled.button<Required<ButtonProps>>`
   }
 
   &:disabled {
-    border-color: ${(props) => props.theme.gray500};
-    background-color: ${(props) => props.theme.gray400};
+    border-color: ${(props) =>
+      props.danger ? props.theme.danger300 : props.theme.gray500};
+    background-color: ${(props) =>
+      props.danger ? props.theme.danger200 : props.theme.gray400};
     cursor: not-allowed;
     box-shadow: none;
-  }
-
-  &.danger {
-    &:focus-visible {
-      outline: ${(props) => props.theme.dangerFocus} solid 2px;
-    }
-    &:disabled {
-      border-color: ${(props) => props.theme.danger300};
-      background-color: ${(props) => props.theme.danger200};
-    }
   }
 `;
 
@@ -91,7 +93,6 @@ export default function Button({
         icon={icon}
         danger={danger}
         {...props}
-        className={danger ? "danger" : ""}
       />
     </ThemeProvider>
   );
