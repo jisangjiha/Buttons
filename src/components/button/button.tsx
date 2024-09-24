@@ -24,7 +24,6 @@ const StyledButton = styled.button<Required<ButtonProps>>`
 
   line-height: 20px;
 
-  // 폰트 미적용
   font-family: "Pretendard";
   font-weight: 600;
   font-size: ${(props) => (props.size === "md" ? "16px" : "24px")};
@@ -51,6 +50,7 @@ const StyledButton = styled.button<Required<ButtonProps>>`
     border-color: ${(props) => props.theme.gray500};
     background-color: ${(props) => props.theme.gray400};
     cursor: not-allowed;
+    box-shadow: none;
   }
 `;
 
