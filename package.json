@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "svgr": "svgr --out-dir src/icons --jsx-runtime=automatic --typescript --replace-attr-values '#000=currentColor' -- icons"
+    "svgr": "svgr --out-dir src/icons --jsx-runtime=automatic --typescript --replace-attr-values '#000=currentColor' --svg-props 'viewBox=0 0 20 20' -- icons"
   },
   "dependencies": {
     "react": "^18.3.1",
