@@ -1,4 +1,4 @@
-import styled, { ThemeProvider } from "styled-components";
+import styled, { DefaultTheme, ThemeProvider } from "styled-components";
 import theme from "../Theme";
 
 interface ButtonProps {
@@ -10,15 +10,35 @@ interface ButtonProps {
   danger?: boolean;
 }
 
+function getColor(
+  props: Required<ButtonProps> & { theme: DefaultTheme },
+  number: number
+) {
+  if (props.danger) {
+    return props.theme[`danger${number}`];
+  }
+  return props.theme[`primary${number}`];
+}
+
+function getColorStr(
+  props: Required<ButtonProps> & { theme: DefaultTheme },
+  string: string
+) {
+  if (props.danger) {
+    return props.theme[`danger${string}`];
+  }
+  return props.theme[`primary${string}`];
+}
+
 const StyledButton = styled.button<Required<ButtonProps>>`
   border-width: 1px;
   border-style: solid;
-  border-color: ${(props) => props.theme.primary400};
+  border-color: ${(props) => getColor(props, 400)};
   border-radius: 8px;
   padding: ${(props) => (props.size === "md" ? "8px 12px" : "12px 16px")};
 
   color: white;
-  background-color: ${(props) => props.theme.primary300};
+  background-color: ${(props) => getColor(props, 300)};
 
   box-shadow: 0 1px 4px rgba(17, 21, 24, 0.2);
 
@@ -29,26 +49,28 @@ const StyledButton = styled.button<Required<ButtonProps>>`
   font-size: ${(props) => (props.size === "md" ? "16px" : "24px")};
 
   &:hover {
-    border-color: ${(props) => props.theme.primary600};
-    background-color: ${(props) => props.theme.primary500};
+    border-color: ${(props) => getColor(props, 600)};
+    background-color: ${(props) => getColor(props, 500)};
     box-shadow: 0 2px 5px rgba(17, 21, 24, 0.2);
     cursor: pointer;
   }
 
   &:focus-visible {
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    outline: ${(props) => props.theme.primaryFocus} solid 2px;
+    outline: ${(props) => getColorStr(props, "Focus")} solid 2px;
   }
 
   &:active {
-    border-color: ${(props) => props.theme.primary700};
-    background-color: ${(props) => props.theme.primary600};
+    border-color: ${(props) => getColor(props, 700)};
+    background-color: ${(props) => getColor(props, 600)};
     box-shadow: 0 1px 2px rgba(17, 21, 24, 0.2);
   }
 
   &:disabled {
-    border-color: ${(props) => props.theme.gray500};
-    background-color: ${(props) => props.theme.gray400};
+    border-color: ${(props) =>
+      props.danger ? props.theme.danger300 : props.theme.gray500};
+    background-color: ${(props) =>
+      props.danger ? props.theme.danger200 : props.theme.gray400};
     cursor: not-allowed;
     box-shadow: none;
   }

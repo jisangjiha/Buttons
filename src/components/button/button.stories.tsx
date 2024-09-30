@@ -23,5 +23,6 @@ export const Primary: Story = {
     children: "레이블",
     size: "md",
     disabled: false,
+    danger: false,
   },
 };
