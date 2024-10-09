@@ -1,13 +1,16 @@
+type Size = "sm" | "md" | "lg" | "xl";
+
 interface SpinnerProps {
-  width?: number;
-  height?: number;
+  size?: Size;
 }
 
-export default function Spinner({ width = 24, height = 24 }: SpinnerProps) {
+export default function Spinner({ size = "md" }: SpinnerProps) {
+  const sizeValue = getSize(size);
+
   return (
     <svg
-      width={width}
-      height={height}
+      width={sizeValue}
+      height={sizeValue}
       stroke="currentColor"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
@@ -50,4 +53,17 @@ export default function Spinner({ width = 24, height = 24 }: SpinnerProps) {
       </g>
     </svg>
   );
+}
+
+function getSize(size: Size) {
+  switch (size) {
+    case "sm":
+      return 12;
+    case "md":
+      return 24;
+    case "lg":
+      return 36;
+    case "xl":
+      return 48;
+  }
 }
