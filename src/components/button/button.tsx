@@ -1,8 +1,9 @@
 import styled, { DefaultTheme, ThemeProvider } from "styled-components";
 import theme from "../Theme";
+import Spinner from "../spinner/spinner";
 
 interface ButtonProps {
-  children: string;
+  children: any; //밑에 오류나서 이걸로 바꿈,,
   size?: "md" | "lg";
   loading?: boolean;
   disabled?: boolean;
@@ -31,6 +32,8 @@ function getColorStr(
 }
 
 const StyledButton = styled.button<Required<ButtonProps>>`
+  display: flex;
+
   border-width: 1px;
   border-style: solid;
   border-color: ${(props) => getColor(props, 400)};
@@ -74,9 +77,23 @@ const StyledButton = styled.button<Required<ButtonProps>>`
     cursor: not-allowed;
     box-shadow: none;
   }
+
+  span {
+    visibility: ${(props) => (props.loading === true ? "hidden" : "")};
+  }
+
+  div {
+    position: absolute;
+    inset: 0px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export default function Button({
+  children,
   size = "md",
   loading = false,
   disabled = false,
@@ -93,7 +110,18 @@ export default function Button({
         icon={icon}
         danger={danger}
         {...props}
-      />
+      >
+        {loading ? (
+          <>
+            <span>{children}</span>
+            <div>
+              <Spinner size={size} />
+            </div>
+          </>
+        ) : (
+          <span>{children}</span>
+        )}
+      </StyledButton>
     </ThemeProvider>
   );
 }
