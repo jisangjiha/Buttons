@@ -1,9 +1,10 @@
 import styled, { DefaultTheme, ThemeProvider } from "styled-components";
 import theme from "../Theme";
 import Spinner from "../spinner/spinner";
+import { ReactNode } from "react";
 
 interface ButtonProps {
-  children: any; //밑에 오류나서 이걸로 바꿈,,
+  children: ReactNode;
   size?: "md" | "lg";
   loading?: boolean;
   disabled?: boolean;
@@ -77,19 +78,19 @@ const StyledButton = styled.button<Required<ButtonProps>>`
     cursor: not-allowed;
     box-shadow: none;
   }
+`;
 
-  span {
-    visibility: ${(props) => (props.loading === true ? "hidden" : "")};
-  }
+const Label = styled.span<{ loading: boolean }>`
+  visibility: ${(props) => (props.loading === true ? "hidden" : "")};
+`;
 
-  div {
-    position: absolute;
-    inset: 0px;
+const SpinnerWrapper = styled.div`
+  position: absolute;
+  inset: 0px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default function Button({
@@ -111,15 +112,11 @@ export default function Button({
         danger={danger}
         {...props}
       >
-        {loading ? (
-          <>
-            <span>{children}</span>
-            <div>
-              <Spinner size={size} />
-            </div>
-          </>
-        ) : (
-          <span>{children}</span>
+        <Label loading={loading}>{children}</Label>
+        {loading && (
+          <SpinnerWrapper>
+            <Spinner size={size} />
+          </SpinnerWrapper>
         )}
       </StyledButton>
     </ThemeProvider>

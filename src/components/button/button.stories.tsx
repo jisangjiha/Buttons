@@ -24,5 +24,6 @@ export const Primary: Story = {
     size: "md",
     disabled: false,
     danger: false,
+    loading: false,
   },
 };
