@@ -34,6 +34,7 @@ function getColorStr(
 
 const StyledButton = styled.button<Required<ButtonProps>>`
   display: flex;
+  position: relative;
 
   border-width: 1px;
   border-style: solid;
@@ -72,9 +73,17 @@ const StyledButton = styled.button<Required<ButtonProps>>`
 
   &:disabled {
     border-color: ${(props) =>
-      props.danger ? props.theme.danger300 : props.theme.gray500};
+      props.danger
+        ? props.theme.danger300
+        : props.loading
+          ? props.theme.primary400
+          : props.theme.gray500};
     background-color: ${(props) =>
-      props.danger ? props.theme.danger200 : props.theme.gray400};
+      props.danger
+        ? props.theme.danger200
+        : props.loading
+          ? props.theme.primary300
+          : props.theme.gray400};
     cursor: not-allowed;
     box-shadow: none;
   }
@@ -91,6 +100,8 @@ const SpinnerWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: wait;
 `;
 
 export default function Button({
@@ -107,7 +118,7 @@ export default function Button({
       <StyledButton
         size={size}
         loading={loading}
-        disabled={disabled}
+        disabled={disabled || loading}
         icon={icon}
         danger={danger}
         {...props}
