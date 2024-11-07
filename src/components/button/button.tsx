@@ -72,11 +72,6 @@ const StyledButton = styled.button<Required<ButtonProps>>`
   }
 
   &:disabled {
-    border-color: ${(props) =>
-      props.danger ? props.theme.danger300 : props.theme.gray500};
-    background-color: ${(props) =>
-      props.danger ? props.theme.danger200 : props.theme.gray400};
-
     cursor: not-allowed;
     box-shadow: none;
 
