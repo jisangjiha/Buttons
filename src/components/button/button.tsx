@@ -75,14 +75,12 @@ const StyledButton = styled.button<Required<ButtonProps>>`
     cursor: not-allowed;
     box-shadow: none;
 
-    &[data-state="default"] {
-      border-color: ${(props) =>
-        props.danger ? props.theme.danger300 : props.theme.gray500};
-      background-color: ${(props) =>
-        props.danger ? props.theme.danger200 : props.theme.gray400};
-    }
+    border-color: ${(props) =>
+      props.danger ? props.theme.danger300 : props.theme.gray500};
+    background-color: ${(props) =>
+      props.danger ? props.theme.danger200 : props.theme.gray400};
 
-    &[data-state="loading"] {
+    &[data-loading="true"] {
       border-color: ${(props) => props.theme.primary400};
       background-color: ${(props) => props.theme.primary300};
     }
@@ -122,7 +120,7 @@ export default function Button({
         icon={icon}
         danger={danger}
         {...props}
-        data-state={loading ? (disabled ? "default" : "loading") : "default"}
+        data-loading={loading && !disabled && "true"}
       >
         <Label loading={loading}>{children}</Label>
         {loading && (
