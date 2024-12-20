@@ -3,6 +3,8 @@ import theme from "../Theme";
 import Spinner from "../spinner/spinner";
 import { ReactNode } from "react";
 
+//disabled+loading일 때 커서만 수정하면
+
 interface ButtonProps {
   children: ReactNode;
   size?: "md" | "lg";
@@ -83,6 +85,8 @@ const StyledButton = styled.button<Required<ButtonProps>>`
     &[data-loading="true"] {
       border-color: ${(props) => props.theme.primary400};
       background-color: ${(props) => props.theme.primary300};
+
+      cursor: wait;
     }
   }
 `;
@@ -98,8 +102,6 @@ const SpinnerWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  cursor: wait;
 `;
 
 export default function Button({
