@@ -1,8 +1,10 @@
 import styled, { DefaultTheme, ThemeProvider } from "styled-components";
 import theme from "../Theme";
+import Spinner from "../spinner/spinner";
+import { ReactNode } from "react";
 
 interface ButtonProps {
-  children: string;
+  children: ReactNode;
   size?: "md" | "lg";
   loading?: boolean;
   disabled?: boolean;
@@ -31,6 +33,9 @@ function getColorStr(
 }
 
 const StyledButton = styled.button<Required<ButtonProps>>`
+  display: flex;
+  position: relative;
+
   border-width: 1px;
   border-style: solid;
   border-color: ${(props) => getColor(props, 400)};
@@ -67,16 +72,38 @@ const StyledButton = styled.button<Required<ButtonProps>>`
   }
 
   &:disabled {
+    cursor: not-allowed;
+    box-shadow: none;
+
     border-color: ${(props) =>
       props.danger ? props.theme.danger300 : props.theme.gray500};
     background-color: ${(props) =>
       props.danger ? props.theme.danger200 : props.theme.gray400};
-    cursor: not-allowed;
-    box-shadow: none;
+
+    &[data-loading="true"] {
+      border-color: ${(props) => props.theme.primary400};
+      background-color: ${(props) => props.theme.primary300};
+    }
   }
 `;
 
+const Label = styled.span<{ loading: boolean }>`
+  visibility: ${(props) => (props.loading === true ? "hidden" : "")};
+`;
+
+const SpinnerWrapper = styled.div`
+  position: absolute;
+  inset: 0px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: wait;
+`;
+
 export default function Button({
+  children,
   size = "md",
   loading = false,
   disabled = false,
@@ -89,11 +116,19 @@ export default function Button({
       <StyledButton
         size={size}
         loading={loading}
-        disabled={disabled}
+        disabled={disabled || loading}
         icon={icon}
         danger={danger}
         {...props}
-      />
+        data-loading={loading && !disabled && "true"}
+      >
+        <Label loading={loading}>{children}</Label>
+        {loading && (
+          <SpinnerWrapper>
+            <Spinner size={size} />
+          </SpinnerWrapper>
+        )}
+      </StyledButton>
     </ThemeProvider>
   );
 }
